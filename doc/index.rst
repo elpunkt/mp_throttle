@@ -6,9 +6,11 @@
 Welcome to mp_throttle's documentation!
 =======================================
 
-.. note:: mp_throttle is currently in version 0.0.1 and not completely tested. If you find any bugs please raise an issue on `github.com <http://www.github.com/elpunkt/mp_throttle/issues>`_
+.. warning:: mp_throttle is currently in version |release| and not fully tested. Don't use it for critical processes without testing and please report any bugs `here <http://www.github.com/elpunkt/mp_throttle/issues>`_
 
-.. note:: mp_throttle can throttle your processes fairly accurate. However the precission hjighly depends on your system and the tasks. See :ref:`Accuracy and calibration <accuracy>` for more on this.
+.. note:: mp_throttle can throttle your processes fairly accurate. However the precission highly depends on your system and the specific task. See :ref:`Accuracy and calibration <accuracy>` for more on this topic.
+
+This module allows to throttle and monitor processes from Pythons `multiprocessing <https://docs.python.org/2/library/multiprocessing.html/>`_ package.
 
 
 Contents:
@@ -26,4 +28,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

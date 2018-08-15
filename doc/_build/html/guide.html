@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Guide &mdash; mp_throttle 0.0.1 documentation</title>
+    <title>Guide &mdash; mp_throttle 0.0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.1',
+        VERSION:     '0.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mp_throttle 0.0.1 documentation" href="index.html" />
+    <link rel="top" title="mp_throttle 0.0.2 documentation" href="index.html" />
     <link rel="next" title="API reference" href="api.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" />
    
@@ -45,7 +45,7 @@
 <h2>Throttle Mode<a class="headerlink" href="#throttle-mode" title="Permalink to this headline">¶</a></h2>
 <p>Activated by default. Deactivate by setting <code class="docutils literal"><span class="pre">as_throttle=False</span></code>. The throttle is a <code class="docutils literal"><span class="pre">multiprocessing.Process</span></code> that puts fuel in the gas queue according to your settings.</p>
 <div class="section" id="accuracy-and-calibration">
-<h3>Accuracy and calibration<a class="headerlink" href="#accuracy-and-calibration" title="Permalink to this headline">¶</a></h3>
+<span id="accuracy"></span><h3>Accuracy and calibration<a class="headerlink" href="#accuracy-and-calibration" title="Permalink to this headline">¶</a></h3>
 <p>Precisely throttling processes on a per second base is hard to accomplish. While the Throttle works fairly well out of the box in the range of up to 10 processes per second, you will find it less accurate in higher ranges. This is due to many constraints:</p>
 <ul class="simple">
 <li><cite>Unsteady fuel consumption</cite>: The throttle puts fuel into the gas queue at the defined rate. However your processes propably do not consume the fuel steadily. Image you want to throttle your worker processes to 4/1 second. When all worker proceeses are busy the gas queue fills up to 4. When they now finish their task around the same time, they all start immidiately again. At last 1/4 of a second later, with the next iteration of the throttle process, the tank fills again and the fuel might be consumed by a worker process immidiately. This would lead to 5 processes started within roughly over 0.25 seconds. <strong>Solution</strong>: use the <cite>hardcap</cite> property.</li>
