@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API reference &mdash; mp_throttle 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="mp_throttle 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Tutorial" href="tutorial.html" />
+    <link rel="prev" title="Welcome to mp_throttle’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mp_throttle.Throttle">
+<em class="property">class </em><code class="descclassname">mp_throttle.</code><code class="descname">Throttle</code><span class="sig-paren">(</span><em>max_n=0</em>, <em>per=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central object to store the multiprocessing shared objects and create the throttling and the monitoring process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>max_n</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; Number of allowed processes per time unit &#8216;per&#8217;</li>
+<li><strong>per</strong> (<code class="docutils literal"><span class="pre">int</span></code>) &#8211; Time in seconds that max_n if reffering to.</li>
+<li><strong>**kwargs</strong> &#8211; See below</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><em>as_monitor</em> (<code class="docutils literal"><span class="pre">bool</span></code>) &#8211;
+If True (default): Monitoring process will be created.</li>
+<li><em>as_throttle</em> (<code class="docutils literal"><span class="pre">bool</span></code>) &#8211;
+If True (default): Monitoring process will be created.</li>
+<li><em>auto_emit</em> (<code class="docutils literal"><span class="pre">bool</span></code>) &#8211;
+If True (default): A timestamp will be passed to the monitoring process, each time <code class="xref py py-meth docutils literal"><span class="pre">await_fuel()</span></code> or <code class="xref py py-meth docutils literal"><span class="pre">has_fuel()</span></code> is called.
+If False: <code class="xref py py-meth docutils literal"><span class="pre">emit()</span></code> can be called by the processes to submit a timestamp to the monitoring process.</li>
+<li><em>auto_calibrate</em> (<code class="docutils literal"><span class="pre">bool</span></code>) &#8211;
+If True (default for max_n &gt;= 49): and as_throttle = True and _correction not set manually: <code class="xref py py-meth docutils literal"><span class="pre">_calibrate()</span></code> gets called when instatiating.
+If False (default for max_n &lt;= 49): <code class="xref py py-meth docutils literal"><span class="pre">_calibrate()</span></code> will not get called.</li>
+<li><em>_correction</em> (<code class="docutils literal"><span class="pre">float</span></code>) &#8211;
+Factor to reduce the frequency with which the gas queue is filled. If set manually, <code class="xref py py-meth docutils literal"><span class="pre">_calibrate()</span></code> will not get called.</li>
+<li><em>hardcap</em> (<code class="docutils literal"><span class="pre">str</span></code>) &#8211;
+If &#8216;limit&#8217; (default): The gas queue will never exceed max_n (Optimising latest frequency).
+If &#8216;one&#8217;: The gas queue will never exceed 1 (Preventig to ever exceed max_n processes per second)
+Else: The gas queue might exceed max_n when worker processes are slower (Optimising mean frequency).</li>
+<li><em>rf_rate</em> (<code class="docutils literal"><span class="pre">float</span></code>) &#8211;
+Time in second between each update of the monitoring process.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="mp_throttle.Throttle.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the monitoring and throttle process and sets self.start_time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the throttle and the monitoring process, empties the gas and the emission queue and resets the lates stats.
+Returns (runtime, total emissions, mean time between emissions, mean emissions per second)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.has_fuel">
+<code class="descname">has_fuel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.has_fuel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.has_fuel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if fuel is available, else False. For blocking unitl fuel is available use <code class="xref py py-meth docutils literal"><span class="pre">await_fuel()</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.await_fuel">
+<code class="descname">await_fuel</code><span class="sig-paren">(</span><em>t=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.await_fuel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.await_fuel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blocks the calling process until fuel is available (return True) or timeout seconds have passed (return False).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<code class="docutils literal"><span class="pre">float</span></code>) &#8211; timeout in seconds. Default = None (unlimited timeout).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.emit">
+<code class="descname">emit</code><span class="sig-paren">(</span><em>timestamp=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.emit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes a timestamp to the monitoring process. Can be called anywhere in each worker process, if self.auto_emit = False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timestamp</strong> (<code class="docutils literal"><span class="pre">float</span> <span class="pre">(epoch-time)</span></code>) &#8211; Optional: Submit a specific timestamp to the monitoring process. If not specified, time.time() will be submitted.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.latest">
+<code class="descname">latest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.latest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.latest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the stats of the last second as tuple (time between emissions, emissions per second)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.mean">
+<code class="descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the mean stats as tuple (mean time between emissions, mean emissions per second)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.lo_hi">
+<code class="descname">lo_hi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.lo_hi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.lo_hi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the lowest time between emission and the highest emissions per second.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle.hi_lo">
+<code class="descname">hi_lo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle.hi_lo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle.hi_lo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the highest time between emission and the lowest emissions per second.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mp_throttle.Throttle._calibrate">
+<code class="descname">_calibrate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mp_throttle/throttle.html#Throttle._calibrate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mp_throttle.Throttle._calibrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates a correction thats is used to adapt the frequency in which fuel is put into the tank.
+If Throttle.auto_calibrate == True, this function is called when creating a Throttle object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Guide</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Lucas Langholf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/api.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/elpunkt/mp_throttle" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
