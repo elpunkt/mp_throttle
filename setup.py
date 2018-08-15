@@ -20,7 +20,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mp_throttle",
-    version=__version__,
+    version=version,
     author=author,
     author_email= mail,
     description="Package to monitor and throttle multiprocessing processes.",
