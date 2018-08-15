@@ -34,7 +34,7 @@ class Throttle:
           If 'one': The gas queue will never exceed 1 (Preventig to ever exceed max_n processes per second)
           Else: The gas queue might exceed max_n when worker processes are slower (Optimising mean frequency).
         * *rf_rate* (``float``) --
-          Time in second between each update of the monitoring process.
+          Time in second between each update of the monitoring process. Can not be 0. Defaul 0.01.
 
 
     """
@@ -43,10 +43,12 @@ class Throttle:
         self.per = per
         self.as_monitor = kwargs.get('as_monitor', True)
         self.as_throttle = kwargs.get('as_throttle', True)
-        self.auto_emit = kwargs.get('auto_emit', True)
+        self.auto_emit = kwargs.get('auto_emit', True if self.as_throttle == True else False)
         self.auto_calibrate = kwargs.get('auto_calibrate', True if self.max_n/self.per >= 49 else False)
         self.hardcap = kwargs.get('hardcap', 'limit')
-        self.refresh_rate = kwargs.get('rf_rate', 0.001)
+        self.refresh_rate = kwargs.get('rf_rate', 0.01)
+        if self.refresh_rate == 0:
+            raise Exception("rf_rate can not be 0.")
         self._correction = kwargs.get('_correction', 0)
         if self.auto_calibrate and self.as_throttle and self._correction == 0:
             self._calibrate()
@@ -96,20 +98,22 @@ class Throttle:
 
     def start(self):
         ''' Starts the monitoring and throttle process and sets self.start_time.'''
-        self.monitor_process = multiprocessing.Process(target=self._start_monitor, daemon=True)
-        self.throttle_process = multiprocessing.Process(target=self._start_throttle, daemon=True)
         self.start_time.value = time.time()
         if self.as_monitor:
+            self.monitor_process = multiprocessing.Process(target=self._start_monitor, daemon=True)
             self.monitor_process.start()
         if self.as_throttle:
+            self.throttle_process = multiprocessing.Process(target=self._start_throttle, daemon=True)
             self.throttle_process.start()
 
     def stop(self):
         ''' Stops the throttle and the monitoring process, empties the gas and the emission queue and resets the lates stats.
             Returns (runtime, total emissions, mean time between emissions, mean emissions per second)'''
         self.kill_flag.set()
-        self.throttle_process.join()
-        self.monitor_process.join()
+        if self.throttle_process != None:
+            self.throttle_process.join()
+        if self.monitor_process != None:
+            self.monitor_process.join()
         stop_time = time.time()
         self.runtime.value += stop_time - self.start_time.value
         self.latest_p_per_s.value = 0
