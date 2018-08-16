@@ -123,7 +123,7 @@ class Throttle:
         while self.emissions.empty == False:
             self.emissions.get()
         self.kill_flag.clear()
-        return (self.runtime.value, self.total_n.value, self.mean_s_per_p.value, self.mean_p_per_s.value)
+        return (self.runtime.value, self.total_n.value, 1/self.mean_p_per_s.value if self.mean_p_per_s.value > 0 else 0, self.mean_p_per_s.value)
 
     def has_fuel(self):
         ''' Returns True if fuel is available, else False. For blocking unitl fuel is available use :meth:`await_fuel` '''

@@ -2,7 +2,7 @@
 #### A Python package to monitor and throttle multiprocessing processes.
 
 ## Use case:
-This package can be used to control and monitor Pythons [multiprocessing](https://docs.python.org/3.4/library/multiprocessing.html?highlight=process) processes. The central Throttle class can be used to monitor the current and the mean frequency of processes and/or to throttle your processes to execute a limited times per second. This can be used to limit the server requests of a multi-process web crawler.
+This package can be used to control and monitor Pythons [multiprocessing](https://docs.python.org/3.4/library/multiprocessing.html?highlight=process) processes or [threading](https://docs.python.org/3.4/library/threading.html) threads. The central Throttle class can be used to monitor the current and the mean frequency of processes/threads and/or to throttle them to execute a limited times per second. This can be used to limit the server requests of a multi-process web crawler.
 
 ## Example:
 ```python

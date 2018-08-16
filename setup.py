@@ -23,7 +23,7 @@ setuptools.setup(
     version=version,
     author=author,
     author_email= mail,
-    description="Package to monitor and throttle multiprocessing processes.",
+    description="Package to monitor and throttle multiple processes or threads.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/elpunkt/mp_throttle",
@@ -32,5 +32,6 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
         "License :: OSI Approved :: MIT License",
+        "Intended Audience :: Developers"
     ),
 )

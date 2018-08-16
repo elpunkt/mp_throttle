@@ -140,7 +140,7 @@ html_theme_options = {
     'github_banner': True,
     'github_user': 'elpunkt',
     'github_repo': 'mp_throttle',
-    'description': 'Throttle and Monitor for multiprocessing.',
+    'description': 'Throttle and Monitor for Python multiprocessing.',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -297,7 +297,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'mp_throttle', 'mp_throttle Documentation',
-     author, 'mp_throttle', 'One line description of project.',
+     author, 'mp_throttle', 'Throttle and Monitor for multiprocessing.',
      'Miscellaneous'),
 ]
 
