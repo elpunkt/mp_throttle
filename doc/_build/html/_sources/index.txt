@@ -10,7 +10,7 @@ Welcome to mp_throttle's documentation!
 
 .. note:: mp_throttle can throttle your processes fairly accurate. However the precission highly depends on your system and the specific task. See :ref:`Accuracy and calibration <accuracy>` for more on this topic.
 
-This module allows to throttle and monitor processes from Pythons `multiprocessing <https://docs.python.org/2/library/multiprocessing.html/>`_ package.
+This module allows to throttle and monitor processes and threads from Pythons `multiprocessing <https://docs.python.org/3.4/library/multiprocessing.html>`_ and `threading <https://docs.python.org/3/library/threading.html>`_ packages.
 
 
 Contents:

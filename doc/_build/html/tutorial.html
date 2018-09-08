@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial &mdash; mp_throttle 0.0.3 documentation</title>
+    <title>Tutorial &mdash; mp_throttle 0.0.5 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.3',
+        VERSION:     '0.0.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mp_throttle 0.0.3 documentation" href="index.html" />
+    <link rel="top" title="mp_throttle 0.0.5 documentation" href="index.html" />
     <link rel="next" title="Guide" href="guide.html" />
     <link rel="prev" title="Welcome to mp_throttle’s documentation!" href="index.html" />
    
@@ -49,8 +49,8 @@
 <h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
 <p>To illustrate the communication between throttle, monitor and worker processes this module uses a specific terminology. Each worker process needs &#8220;fuel&#8221; to run. The throttle limits the number of processes by providing limited &#8220;fuel&#8221;. By using &#8220;fuel&#8221; each process creates &#8220;emissions&#8221;. These are counted by the monitor.</p>
 </div>
-<div class="section" id="throttle-you-processes">
-<h2>Throttle you processes<a class="headerlink" href="#throttle-you-processes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="throttle-your-processes">
+<h2>Throttle your processes<a class="headerlink" href="#throttle-your-processes" title="Permalink to this headline">¶</a></h2>
 <p>To get started simply import and instantiate the central <a class="reference internal" href="api.html#mp_throttle.Throttle" title="mp_throttle.Throttle"><code class="xref py py-class docutils literal"><span class="pre">mp_throttle.Throttle</span></code></a> class. As a first argument it takes the maximum number of processes that should run in a specified time. As a the second argument you can specify the time (typically one second):</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mp_throttle</span>
 <span class="n">throttle</span> <span class="o">=</span> <span class="n">mp_throttle</span><span class="o">.</span><span class="n">Throttle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -120,7 +120,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#throttle-you-processes">Throttle you processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#throttle-your-processes">Throttle your processes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-the-stats">Get the stats</a></li>
 </ul>
 </li>
@@ -134,7 +134,7 @@
 <li><a class="reference internal" href="#">Tutorial</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#terminology">Terminology</a></li>
-<li><a class="reference internal" href="#throttle-you-processes">Throttle you processes</a></li>
+<li><a class="reference internal" href="#throttle-your-processes">Throttle your processes</a></li>
 <li><a class="reference internal" href="#get-the-stats">Get the stats</a></li>
 </ul>
 </li>

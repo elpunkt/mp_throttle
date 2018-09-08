@@ -98,6 +98,8 @@ class Throttle:
 
     def start(self):
         ''' Starts the monitoring and throttle process and sets self.start_time.'''
+        if self.kill_flag.is_set():
+            self.kill_flag.clear()
         self.start_time.value = time.time()
         if self.as_monitor:
             self.monitor_process = multiprocessing.Process(target=self._start_monitor, daemon=True)
@@ -122,7 +124,6 @@ class Throttle:
             self.gas.get()
         while self.emissions.empty == False:
             self.emissions.get()
-        self.kill_flag.clear()
         return (self.runtime.value, self.total_n.value, 1/self.mean_p_per_s.value if self.mean_p_per_s.value > 0 else 0, self.mean_p_per_s.value)
 
     def has_fuel(self):

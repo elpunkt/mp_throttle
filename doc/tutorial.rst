@@ -13,8 +13,8 @@ Terminology
 -----------
 To illustrate the communication between throttle, monitor and worker processes this module uses a specific terminology. Each worker process needs "fuel" to run. The throttle limits the number of processes by providing limited "fuel". By using "fuel" each process creates "emissions". These are counted by the monitor.
 
-Throttle you processes
-----------------------
+Throttle your processes
+-----------------------
 To get started simply import and instantiate the central :class:`mp_throttle.Throttle` class. As a first argument it takes the maximum number of processes that should run in a specified time. As a the second argument you can specify the time (typically one second)::
 
   import mp_throttle
